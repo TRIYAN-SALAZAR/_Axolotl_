@@ -1,8 +1,11 @@
 const { REST, Routes } = require('discord.js');
-const { clientId, guildId, BOT_TOKEN } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
+const dotenv = require('dotenv');
 
+dotenv.config();
+
+const { clientId, guildId, BOT_TOKEN } = process.env;
 const commands = [];
 const commandsPath = path.join(__dirname, 'commands');
 const commandFilesOrFolders = fs.readdirSync(commandsPath);
