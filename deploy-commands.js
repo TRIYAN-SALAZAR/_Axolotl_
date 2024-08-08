@@ -13,6 +13,7 @@ const commandFilesOrFolders = fs.readdirSync(commandsPath);
 for (const fileOrFolder of commandFilesOrFolders) {
     const fullPath = path.join(commandsPath, fileOrFolder);
     let commandFiles;
+
     if (fs.statSync(fullPath).isDirectory()) {
         commandFiles = fs.readdirSync(fullPath).filter(file => file.endsWith('.js')).map(file => path.join(fullPath, file));
     } else if (fullPath.endsWith('.js')) {
@@ -35,7 +36,7 @@ for (const fileOrFolder of commandFilesOrFolders) {
 // Construct and prepare an instance of the REST module
 const rest = new REST().setToken(BOT_TOKEN);
 
-// and deploy your commands!
+// and deploy your commands!    
 (async () => {
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);

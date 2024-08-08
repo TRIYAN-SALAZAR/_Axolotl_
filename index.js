@@ -1,22 +1,25 @@
-const Discord = require('discord.js');
 const dotenv = require('dotenv');
 const fs = require('node:fs');
 const path = require('node:path');
+const { 
+	Client, 
+	Collection, 
+	GatewayIntentBits,
+} = require('discord.js');
 
 dotenv.config();
 const { BOT_TOKEN } = process.env;
 
 // Creación del bot
-const client = new Discord.Client({
+const client = new Client({
 	intents: [
-		Discord.GatewayIntentBits.Guilds,
-		// Discord.GatewayIntentBits.GuildMessages
+		GatewayIntentBits.Guilds
 	]
 });
 
 // Para cargar los archivos de los comandos
-client.commands = new Discord.Collection();
-client.cooldowns = new Discord.Collection();
+client.commands = new Collection();
+client.cooldowns = new Collection();
 
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -53,7 +56,7 @@ client.on('interactionCreate', async interaction => {
 
 	const { cooldowns } = client;
 	if (!cooldowns.has(command.data.name)) {
-		cooldowns.set(command.data.name, new Discord.Collection());
+		cooldowns.set(command.data.name, new Collection());
 	}
 
 	const now = Date.now();
